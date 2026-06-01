@@ -1,205 +1,181 @@
-/* =========================
-   EMAILJS
-========================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-emailjs.init({
-    publicKey: "yDzjl8OV72ZMDc8BO"
-});
+body{
 
-/* =========================
-   NÚT MỞ QUÀ
-========================= */
+    min-height:100vh;
 
-const btn =
-document.getElementById(
-    "giftBtn"
-);
+    background:
+    linear-gradient(
+        135deg,
+        #ffd6e8,
+        #fff0f6
+    );
 
-btn.addEventListener(
-    "click",
-    async () => {
+    font-family:
+        Arial,
+        sans-serif;
 
-        btn.disabled = true;
+    overflow-x:hidden;
+}
 
-        try {
+.container{
 
-            await emailjs.send(
-                "service_xvuis2h",
-                "template_kfrelyj",
-                {
-                    click_time:
-                        new Date().toLocaleString(),
+    width:100%;
 
-                    page:
-                        window.location.href
-                }
-            );
+    max-width:1200px;
 
-            console.log(
-                "Đã gửi email"
-            );
+    margin:auto;
 
-        } catch (error) {
+    padding:30px;
 
-            console.error(
-                "Lỗi EmailJS:",
-                error
-            );
-        }
+    text-align:center;
+}
 
-        startGift();
+.title{
+
+    margin-top:40px;
+
+    color:#ff1493;
+
+    font-size:40px;
+}
+
+.subtitle{
+
+    margin-top:15px;
+
+    margin-bottom:30px;
+
+    color:#666;
+
+    font-size:20px;
+}
+
+#giftBtn{
+
+    padding:18px 40px;
+
+    border:none;
+
+    border-radius:20px;
+
+    background:white;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,0.15);
+}
+
+#giftBtn:hover{
+
+    transform:scale(1.05);
+}
+
+#countdown{
+
+    font-size:70px;
+
+    color:#ff1493;
+
+    margin:25px;
+}
+
+.gallery{
+
+    margin-top:40px;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(
+        auto-fit,
+        minmax(250px,1fr)
+    );
+
+    gap:20px;
+}
+
+.photo{
+
+    width:100%;
+
+    border-radius:20px;
+
+    opacity:0;
+
+    filter:blur(10px);
+
+    transform:scale(0.8);
+
+    transition:1.2s;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,0.2);
+}
+
+.photo.show{
+
+    opacity:1;
+
+    filter:blur(0);
+
+    transform:scale(1);
+}
+
+.hidden{
+
+    display:none;
+}
+
+#wish{
+
+    margin-top:40px;
+
+    color:#ff1493;
+
+    font-size:30px;
+
+    line-height:1.8;
+
+    font-weight:bold;
+}
+
+.heart{
+
+    position:fixed;
+
+    bottom:-50px;
+
+    pointer-events:none;
+
+    animation:
+    fly 6s linear forwards;
+}
+
+@keyframes fly{
+
+    from{
+
+        transform:
+        translateY(0);
+
+        opacity:1;
     }
-);
 
-/* =========================
-   ĐẾM NGƯỢC
-========================= */
+    to{
 
-function startGift() {
+        transform:
+        translateY(-120vh);
 
-    let count = 3;
-
-    const counter =
-    document.getElementById(
-        "countdown"
-    );
-
-    counter.innerHTML =
-    count;
-
-    const timer =
-    setInterval(() => {
-
-        count--;
-
-        if(count > 0){
-
-            counter.innerHTML =
-            count;
-
-        }else{
-
-            clearInterval(
-                timer
-            );
-
-            counter.innerHTML =
-            "❤️";
-
-            showGallery();
-        }
-
-    },1000);
-}
-
-/* =========================
-   HIỆN ẢNH
-========================= */
-
-function showGallery(){
-
-    document
-    .getElementById(
-        "gallery"
-    )
-    .classList
-    .remove(
-        "hidden"
-    );
-
-    const photos =
-    document.querySelectorAll(
-        ".photo"
-    );
-
-    photos.forEach(
-        (
-            img,
-            index
-        ) => {
-
-            setTimeout(() => {
-
-                img.classList.add(
-                    "show"
-                );
-
-            }, index * 800);
-
-        }
-    );
-
-    setTimeout(() => {
-
-        document
-        .getElementById(
-            "wish"
-        )
-        .innerHTML =
-
-        `
-        Chúc bé nhỏo của anh
-        có một ngày 1/6 thật vui vẻ ❤️
-
-        <br><br>
-
-        Cảm ơn em vì đã xuất hiện
-        trong cuộc đời anh 🥰
-
-        <br><br>
-
-        Mong em luôn thật hạnh phúc ✨
-
-        <br><br>
-
-        Kiểm tra tài khoản
-        của em nhé 💸❤️
-        `;
-
-    },3500);
-
-    createHearts();
-}
-
-/* =========================
-   TRÁI TIM BAY
-========================= */
-
-function createHearts(){
-
-    setInterval(() => {
-
-        const heart =
-        document.createElement(
-            "div"
-        );
-
-        heart.className =
-        "heart";
-
-        heart.innerHTML =
-        "❤️";
-
-        heart.style.left =
-        Math.random() * 100
-        + "vw";
-
-        heart.style.fontSize =
-        (
-            20 +
-            Math.random() * 30
-        ) + "px";
-
-        document.body
-        .appendChild(
-            heart
-        );
-
-        setTimeout(() => {
-
-            heart.remove();
-
-        },6000);
-
-    },300);
+        opacity:0;
+    }
 }

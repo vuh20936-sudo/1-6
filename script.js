@@ -1,34 +1,168 @@
-emailjs.init({
-    publicKey: "yDzjl8OV72ZMDc8BO"
-});
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-const btn = document.getElementById("giftBtn");
+body {
 
-btn.addEventListener("click", async () => {
+    min-height: 100vh;
 
-    document.querySelector(".couple-photo")
-        .style.filter = "blur(0px)";
+    background:
+    linear-gradient(
+        135deg,
+        #ffd6e8,
+        #fff0f6
+    );
 
-    document.getElementById("message").innerHTML =
-        "Chúc bé nhỏo của anh 1/6 vuii vẻ ❤️";
+    font-family:
+        Arial,
+        sans-serif;
 
-    btn.disabled = true;
+    overflow-x: hidden;
+}
 
-    try {
+.container {
 
-        await emailjs.send(
-            "service_xvuis2h",
-            "template_kfrelyj",
-            {
-                click_time: new Date().toLocaleString(),
-                page: window.location.href
-            }
+    width: 100%;
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding: 30px;
+
+    text-align: center;
+}
+
+.title {
+
+    color: #ff1493;
+
+    margin-top: 40px;
+
+    margin-bottom: 40px;
+}
+
+#giftBtn {
+
+    padding: 18px 40px;
+
+    border: none;
+
+    border-radius: 18px;
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+    background: white;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.15);
+
+    transition: 0.3s;
+}
+
+#giftBtn:hover {
+
+    transform: scale(1.05);
+}
+
+.gallery {
+
+    margin-top: 40px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(220px,1fr)
         );
 
-        console.log("Email đã gửi thành công!");
+    gap: 20px;
+}
 
-    } catch(error) {
+.photo {
 
-        console.error(error);
+    width: 100%;
+
+    border-radius: 20px;
+
+    opacity: 0;
+
+    filter: blur(10px);
+
+    transform: scale(0.8);
+
+    transition: 1.2s;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.2);
+}
+
+.photo.show {
+
+    opacity: 1;
+
+    filter: blur(0);
+
+    transform: scale(1);
+}
+
+.hidden {
+
+    display: none;
+}
+
+#countdown {
+
+    font-size: 70px;
+
+    color: #ff1493;
+
+    margin: 30px;
+}
+
+#wish {
+
+    margin-top: 40px;
+
+    font-size: 30px;
+
+    color: #ff1493;
+
+    line-height: 1.8;
+
+    font-weight: bold;
+}
+
+.heart {
+
+    position: fixed;
+
+    bottom: -50px;
+
+    animation:
+        fly 6s linear forwards;
+}
+
+@keyframes fly {
+
+    from {
+
+        transform:
+            translateY(0);
+
+        opacity: 1;
     }
-});
+
+    to {
+
+        transform:
+            translateY(-110vh);
+
+        opacity: 0;
+    }
+}
